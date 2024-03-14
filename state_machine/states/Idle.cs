@@ -2,12 +2,14 @@ using Godot;
 
 public partial class Idle : OnGround
 {
-    public override void UnHandleInput(InputEvent @event)
+    public override void PhysicsUpdate(double delta)
     {
-        base.UnHandleInput(@event);
-        if (@event.IsActionPressed("left") || @event.IsActionPressed("right") || @event.IsActionPressed("up") || @event.IsActionPressed("down"))
+        UpdateGroundInput();
+
+        if (Direction != Vector3.Zero)
         {
             EmitSignal(SignalName.Transition, "walk");
         }
+        base.PhysicsUpdate(delta);
     }
 }

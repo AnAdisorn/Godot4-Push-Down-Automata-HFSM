@@ -9,10 +9,10 @@ public partial class Walk : GroundMove
     }
     public override void UnHandleInput(InputEvent @event)
     {
-        base.UnHandleInput(@event);
         if (@event.IsActionPressed("run"))
         {
             EmitSignal(SignalName.Transition, "run");
         }
+        base.UnHandleInput(@event);
     }
 }

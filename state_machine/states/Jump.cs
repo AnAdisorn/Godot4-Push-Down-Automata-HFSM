@@ -5,16 +5,9 @@ public partial class Jump : OnAir
     public override void Enter()
     {
         base.Enter();
+        // Enter jump, add JumpImpulse to vertical velocity
         OwnerBody.Velocity += new Vector3(0, OwnerBody.JumpImpulse, 0);
-    }
-    public override void PhysicsUpdate(double delta)
-    {
-        base.PhysicsUpdate(delta);
-        OwnerBody.MoveAndSlide();
-
-        if (OwnerBody.IsOnFloor())
-        {
-            EmitSignal(SignalName.Transition, "previous");
-        }
+        // Transit to fall
+        EmitSignal(SignalName.Transition, "fall");
     }
 }

@@ -41,22 +41,25 @@ public partial class StateMachine : Node
 
     public override void _PhysicsProcess(double delta)
     {
+        GD.Print(CurrentState.Name);
         CurrentState.PhysicsUpdate(delta);
     }
 
     private void ChangeState(string stateName)
     {
+        GD.Print($"{CurrentState.Name} transits to {stateName}");
+        // Check if stateName is valid
         if (StatesMap.ContainsKey(stateName) || stateName == "previous")
         {
             CurrentState.Exit();
 
+            // Pop current state out if next state is previous
             if (stateName == "previous")
-            // Pop current state out
             {
                 StatesStack.Pop();
             }
+            // Push new state in if next state is not previous
             else
-            // Push new state in
             {
                 StatesStack.Push(StatesMap[stateName.ToLower()]);
             }
